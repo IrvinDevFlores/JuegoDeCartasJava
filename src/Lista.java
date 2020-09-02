@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 public class Lista
 {
     Nodo primero, ultimo;
@@ -9,18 +11,19 @@ public class Lista
         primero = ultimo = null;
     }
 
-    public void InsertarNodoEnPosicion(int pos, Nodo Nodo)
+    public void InsertarNodoEnPosicion(int pos, Nodo nodo)
     {
+        Nodo temp = primero;
         if(EstaVacio())
         {
-            InsertarInicio(Nodo);
+            InsertarInicio(nodo);
         }else if(Length == 1)
         {
-            if((int) Nodo.Info < (int) primero.Info)
+            if((int) nodo.Info < (int) primero.Info)
             {
-                InsertarInicio(Nodo);
+                InsertarInicio(nodo);
             }else{
-                InsertarFinal(Nodo);
+                InsertarFinal(nodo);
             }
         }
         else{
@@ -38,8 +41,8 @@ public class Lista
                     break;
                 }
 
-                Nodo.Siguiente = actual;
-                anterior.Siguiente = Nodo;
+                nodo.Siguiente = actual;
+                anterior.Siguiente = nodo;
                 i++;
             }
         }
@@ -52,6 +55,8 @@ public class Lista
         if(pos == 0)
         {
             primero = temp.Siguiente;
+            Length--;
+
             return;
         }
 
@@ -66,7 +71,9 @@ public class Lista
         }
         Nodo siguiente = temp.Siguiente.Siguiente;
         temp.Siguiente = siguiente;
+        Length--;
     }
+
 
     public void InsertarNodoAsc(Nodo n)
     {
@@ -76,45 +83,32 @@ public class Lista
             InsertarInicio(n);
         }else if(Length == 1)
         {
-            Carta cartaEnNodo = (Carta)temp.Info;
-            Carta numeroDeCarta = ((Carta)n.Info);
 
-            if( cartaEnNodo.Numero < numeroDeCarta.Numero)
-            {
-                InsertarFinal(n);
-            }else
-            {
-                InsertarInicio(n);
-            }
         }
         else{
-            Carta carta = (Carta) n.Info;
-            Carta numeroCarta = (Carta) primero.Info;
 
-            int numeroEnCarta = carta.Numero;
-            int numeroNodo = numeroCarta.Numero;
+            int i = 0, j = 0;
 
-            Carta ultima = (Carta) ultimo.Info;
-            int ultim = ultima.Numero;
-            if (numeroEnCarta < numeroNodo ) {
+            int keyDelNodo = (int) n.Info;
+            if( keyDelNodo < (int)primero.Info )
+            {
                 InsertarInicio(n);
 
-            } else if (ultim <= numeroEnCarta) {
+            }
+            else if((int) ultimo.Info <= keyDelNodo)
+            {
                 InsertarFinal(n);
             }
             else
             {
                 Nodo actual = primero;
 
-                int x = 0;
-                Carta ac = null;
-                while (actual.Siguiente != null &&  ac.Numero < numeroEnCarta) {
+                while (actual.Siguiente != null  && (int) actual.Siguiente.Info < keyDelNodo)
+                {
                     actual = actual.Siguiente;
-                     ac = (Carta) actual.Siguiente.Info;
                 }
                 n.Siguiente = actual.Siguiente;
                 actual.Siguiente = n;
-                Length++;
             }
 
         }
@@ -141,19 +135,20 @@ public class Lista
             }
             n.Siguiente = actual.Siguiente;
             actual.Siguiente = n;
-            Length++;
         }
 
 
     }
 
-    public int contar(Nodo Nodo)
+//Metodos listos}
+
+    public int contar(Nodo nodo)
     {
         int cont = 0;
         Nodo temp = primero;
         while(temp != null)
         {
-            if(Nodo.equals(temp.Info))
+            if(nodo.equals(temp.Info))
             {
                 cont++;
             }
@@ -272,3 +267,6 @@ public class Lista
         return (ultimo==null && primero ==null) ? true: false;
     }
 }
+
+
+

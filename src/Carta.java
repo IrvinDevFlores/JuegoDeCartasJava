@@ -1,13 +1,12 @@
+import javax.swing.*;
 
+public class Carta extends ImagenDibujable {
 
-public class Carta extends ObjetoDibujable
-{
-    char Tipo;
     int Numero;
+    char Tipo;
 
-    public Carta(String ruta, int x, int y)
-    {
-        super(ruta,x,y);
+    public Carta(String ruta, int x, int y) {
+        super(ruta, x, y);
     }
 
 
